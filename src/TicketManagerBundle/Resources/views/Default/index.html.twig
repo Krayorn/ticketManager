@@ -1,1 +1,6 @@
-Hello World!
+{% extends 'TicketManagerBundle::layout.html.twig' %}
+
+{% block content %}
+    Hello You
+    {{dump(app.user)}}
+{% endblock %}
