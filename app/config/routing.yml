@@ -1,0 +1,5 @@
+ticket_manager:
+    resource: "@TicketManagerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

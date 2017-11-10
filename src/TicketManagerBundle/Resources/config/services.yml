@@ -1,0 +1,4 @@
+services:
+#    ticket_manager.example:
+#        class: TicketManagerBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
