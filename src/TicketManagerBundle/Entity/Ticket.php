@@ -237,4 +237,9 @@ class Ticket
     {
         return $this->messages;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }
