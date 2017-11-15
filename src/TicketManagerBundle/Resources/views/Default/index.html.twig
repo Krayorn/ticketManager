@@ -1,6 +1,11 @@
 {% extends 'TicketManagerBundle::layout.html.twig' %}
 
 {% block content %}
-    Hello You
+    logged in as {{app.user.username}}<br />
+    <a href="{{ path('fos_user_security_logout') }}">
+        Logout
+    </a><br />
+    here you will soon see a list of all tickets
     {{dump(app.user)}}
 {% endblock %}
+
