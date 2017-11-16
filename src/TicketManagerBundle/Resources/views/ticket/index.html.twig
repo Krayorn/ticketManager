@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Tickets list</h1>
 
-    <table>
+    {# <table>
         <thead>
             <tr>
                 <th>Id</th>
@@ -33,7 +33,34 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> #}
+
+        {% for ticket in tickets %}
+            <div>
+                <h2>
+                    <a href="{{ path('ticket_show', { 'id': ticket.id }) }}">{{ ticket.title }}</a>
+                </h2>
+                <p>{{ ticket.content }}</p>
+                <span>created the {{ ticket.created|date('Y-m-d H:i:s') }} by {{ ticket.author }}</span>
+                <span>
+                        assigned to :
+                    {% if ticket.assignedAt %}
+                        {{ ticket.assignedAt }}
+                    {% else %}
+                        No one
+                    {% endif %}
+                </span>
+                <ul>
+                    <li>
+                        <a href="{{ path('ticket_show', { 'id': ticket.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('ticket_edit', { 'id': ticket.id }) }}">edit</a>
+                    </li>
+                </ul>
+                <span>{{ticket.messages.count()}} messages </span> {# FIXME: Messages #}
+            </div>
+        {% endfor %}
 
     <ul>
         <li>
