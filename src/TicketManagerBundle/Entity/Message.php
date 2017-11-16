@@ -112,11 +112,11 @@ class Message
     /**
      * Set author
      *
-     * @param \TicketManagerBundle\Entity\User $author
+     * @param \UserBundle\Entity\User $author
      *
      * @return Message
      */
-    public function setAuthor(\TicketManagerBundle\Entity\User $author = null)
+    public function setAuthor(\UserBundle\Entity\User $author = null)
     {
         $this->author = $author;
 
@@ -126,7 +126,7 @@ class Message
     /**
      * Get author
      *
-     * @return \TicketManagerBundle\Entity\User
+     * @return \UserBundle\Entity\User
      */
     public function getAuthor()
     {

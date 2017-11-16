@@ -2,10 +2,14 @@
 
 namespace TicketManagerBundle\Controller;
 
-use TicketManagerBundle\Entity\Ticket;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+
+use TicketManagerBundle\Entity\Ticket;
+use TicketManagerBundle\Entity\Message;
+use TicketManagerBundle\Form\MessageType;
 
 /**
  * Ticket controller.
@@ -70,9 +74,16 @@ class TicketController extends Controller
     {
         $deleteForm = $this->createDeleteForm($ticket);
 
+        $message = new Message();
+
+        $messageForm = $this->createForm(MessageType::class, $message, array(
+            'action' => $this->generateUrl('message_new', ['id' => $ticket->getId()])
+        ));
+
         return $this->render('TicketManagerBundle::ticket/show.html.twig', array(
             'ticket' => $ticket,
             'delete_form' => $deleteForm->createView(),
+            'new_message_form' => $messageForm->createView()
         ));
     }
 

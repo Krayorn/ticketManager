@@ -13,9 +13,9 @@ class MessageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('content')->add('created')->add('author')->add('ticket');
+        $builder->add('content');
     }
-    
+
     /**
      * {@inheritdoc}
      */
