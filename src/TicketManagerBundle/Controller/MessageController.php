@@ -46,4 +46,66 @@ class MessageController extends Controller
             return $this->redirectToRoute('ticket_show', array('id' => $ticket->getId()));
         }
     }
+
+    /**
+     * Displays a form to edit an existing message entity.
+     *
+     * @Route("/{id}/edit", name="message_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Request $request, Message $message)
+    {
+        $deleteForm = $this->createDeleteForm($message);
+        $editForm = $this->createForm('TicketManagerBundle\Form\MessageType', $message);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('message_edit', array('id' => $message->getId()));
+        }
+
+        return $this->render('TicketManagerBundle::message/edit.html.twig', array(
+            'message' => $message,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Deletes a message entity.
+     *
+     * @Route("/{id}", name="message_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, Message $message)
+    {
+        $form = $this->createDeleteForm($message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($message);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('ticket_show', ['id' => $message->getTicket()->getId()]);
+    }
+
+    /**
+     * Creates a form to delete a message entity.
+     *
+     * @param Message $message The message entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Message $message)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('message_delete', array('id' => $message->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
+
 }

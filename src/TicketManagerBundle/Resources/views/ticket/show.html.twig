@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>
-        <a href="{{ path('ticket_show', { 'id': ticket.id }) }}">{{ ticket.title }}</a>
-    </h2>
+    <h2>{{ ticket.title }}</h2>
     <p>{{ ticket.content }}</p>
-    <span>created the {{ ticket.created|date('Y-m-d H:i:s') }} by {{ ticket.author }}</span>
+    <span>created the {{ ticket.created|date('Y-m-d H:i') }} by {{ ticket.author }}</span>
     <span>
             assigned to :
         {% if ticket.assignedAt %}
@@ -33,4 +31,10 @@
             {{ form_end(new_message_form) }}
         </li>
     </ul>
+
+    {% for message in ticket.messages %}
+        <p>{{message.content}}</p>
+        <span>By : {{message.author}} the {{message.created|date('Y-m-d H:i')}}</span>
+    {% endfor %}
+
 {% endblock %}
