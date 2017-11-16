@@ -128,7 +128,7 @@ class Ticket
     /**
      * Set created
      *
-     * @param datetime $created
+     * @param \DateTime $created
      *
      * @return Ticket
      */

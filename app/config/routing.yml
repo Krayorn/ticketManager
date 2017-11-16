@@ -2,10 +2,6 @@ ticket_manager_ticket:
     resource: "@TicketManagerBundle/Controller/TicketController.php"
     type:     annotation
 
-ticket_manager_message:
-    resource: "@TicketManagerBundle/Controller/MessageController.php"
-    type:     annotation
-
 user:
     resource: "@UserBundle/Controller/"
     type:     annotation

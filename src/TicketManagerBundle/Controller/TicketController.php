@@ -40,6 +40,9 @@ class TicketController extends Controller
     public function newAction(Request $request)
     {
         $ticket = new Ticket();
+        $ticket->setCreated(new \DateTime());
+        $ticket->setAuthor($this->getUser());
+
         $form = $this->createForm('TicketManagerBundle\Form\TicketType', $ticket);
         $form->handleRequest($request);
 
