@@ -82,9 +82,6 @@ class MessageController extends Controller
     {
         $deleteForm = $this->createMessageDeleteForm($message);
         $deleteForm->handleRequest($request);
-        var_dump($deleteForm->isSubmitted());
-        var_dump($deleteForm->isValid());
-        die();
         if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($message);

@@ -80,15 +80,21 @@ class TicketController extends Controller
             'action' => $this->generateUrl('message_new', ['id' => $ticket->getId()])
         ));
 
-        $deleteMessageForm = $this->createMessageDeleteForm($message, array(
-            'method' => 'delete'
-        ));
+        $ticketMessages = $ticket->getMessages();
+        $arrayDeleteMessageForm = [];
+
+        foreach ($ticketMessages as $ticketMessage) {
+            $deleteMessageForm = $this->createMessageDeleteForm($ticketMessage);
+
+            $arrayDeleteMessageForm[$ticketMessage->getId()] = $deleteMessageForm;
+        }
+
 
         return $this->render('TicketManagerBundle::ticket/show.html.twig', array(
             'ticket' => $ticket,
             'delete_form' => $deleteForm->createView(),
             'new_message_form' => $messageForm->createView(),
-            'delete_message_form' => $deleteMessageForm->createView()
+            'delete_message_forms' => $arrayDeleteMessageForm
         ));
     }
 
@@ -141,7 +147,7 @@ class TicketController extends Controller
      *
      * @param Ticket $ticket The ticket entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createDeleteForm(Ticket $ticket)
     {
@@ -157,12 +163,13 @@ class TicketController extends Controller
      *
      * @param Message $message The message entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createMessageDeleteForm(Message $message)
     {
         return $this->createFormBuilder()
             ->setMethod('DELETE')
+            ->setAction($this->generateUrl('message_delete', array('id' => $message->getId())))
             ->getForm()
         ;
     }
