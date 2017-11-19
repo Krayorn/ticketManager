@@ -35,6 +35,10 @@
     {% for message in ticket.messages %}
         <p>{{message.content| nl2br}}</p>
         <span>By : {{message.author}} the {{message.created|date('Y-m-d H:i')}}</span>
+        <a href="{{ path('message_edit', { 'id': message.id }) }}">Edit</a>
+        {{ form_start(delete_message_form, {'action': path('message_delete', { 'id': message.id }), 'method': 'DELETE'}) }}
+            <input type="submit" value="Delete">
+        {{ form_end(delete_message_form) }}
     {% endfor %}
 
 {% endblock %}

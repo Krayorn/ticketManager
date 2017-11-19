@@ -55,14 +55,14 @@ class MessageController extends Controller
      */
     public function editAction(Request $request, Message $message)
     {
-        $deleteForm = $this->createDeleteForm($message);
+        $deleteForm = $this->createMessageDeleteForm($message);
         $editForm = $this->createForm('TicketManagerBundle\Form\MessageType', $message);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('message_edit', array('id' => $message->getId()));
+            return $this->redirectToRoute('ticket_show', ['id' => $message->getTicket()->getId()]);
         }
 
         return $this->render('TicketManagerBundle::message/edit.html.twig', array(
@@ -80,10 +80,12 @@ class MessageController extends Controller
      */
     public function deleteAction(Request $request, Message $message)
     {
-        $form = $this->createDeleteForm($message);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        $deleteForm = $this->createMessageDeleteForm($message);
+        $deleteForm->handleRequest($request);
+        var_dump($deleteForm->isSubmitted());
+        var_dump($deleteForm->isValid());
+        die();
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($message);
             $em->flush();
@@ -91,7 +93,6 @@ class MessageController extends Controller
 
         return $this->redirectToRoute('ticket_show', ['id' => $message->getTicket()->getId()]);
     }
-
     /**
      * Creates a form to delete a message entity.
      *
@@ -99,7 +100,7 @@ class MessageController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Message $message)
+    private function createMessageDeleteForm(Message $message)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('message_delete', array('id' => $message->getId())))

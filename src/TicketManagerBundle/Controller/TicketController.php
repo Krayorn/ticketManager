@@ -80,10 +80,15 @@ class TicketController extends Controller
             'action' => $this->generateUrl('message_new', ['id' => $ticket->getId()])
         ));
 
+        $deleteMessageForm = $this->createMessageDeleteForm($message, array(
+            'method' => 'delete'
+        ));
+
         return $this->render('TicketManagerBundle::ticket/show.html.twig', array(
             'ticket' => $ticket,
             'delete_form' => $deleteForm->createView(),
-            'new_message_form' => $messageForm->createView()
+            'new_message_form' => $messageForm->createView(),
+            'delete_message_form' => $deleteMessageForm->createView()
         ));
     }
 
@@ -122,7 +127,6 @@ class TicketController extends Controller
     {
         $form = $this->createDeleteForm($ticket);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($ticket);
@@ -143,6 +147,21 @@ class TicketController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('ticket_delete', array('id' => $ticket->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
+
+    /**
+     * Creates a form to delete a message entity.
+     *
+     * @param Message $message The message entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createMessageDeleteForm(Message $message)
+    {
+        return $this->createFormBuilder()
             ->setMethod('DELETE')
             ->getForm()
         ;
