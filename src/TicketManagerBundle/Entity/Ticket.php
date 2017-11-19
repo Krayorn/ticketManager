@@ -62,7 +62,7 @@ class Ticket
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="ticket")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="ticket", cascade={"remove"})
      */
     private $messages;
 

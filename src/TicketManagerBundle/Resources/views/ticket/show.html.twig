@@ -2,7 +2,7 @@
 
 {% block body %}
     <h2>{{ ticket.title }}</h2>
-    <p>{{ ticket.content }}</p>
+    <p>{{ ticket.content| nl2br }}</p>
     <span>created the {{ ticket.created|date('Y-m-d H:i') }} by {{ ticket.author }}</span>
     <span>
             assigned to :
@@ -33,7 +33,7 @@
     </ul>
 
     {% for message in ticket.messages %}
-        <p>{{message.content}}</p>
+        <p>{{message.content| nl2br}}</p>
         <span>By : {{message.author}} the {{message.created|date('Y-m-d H:i')}}</span>
     {% endfor %}
 
