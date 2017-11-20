@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'TicketManagerBundle::layout.html.twig' %}
 
-{% block body %}
+{% block content %}
     <h2>{{ ticket.title }}</h2>
     <p>{{ ticket.content| nl2br }}</p>
     <span>created the {{ ticket.created|date('Y-m-d H:i') }} by {{ ticket.author }}</span>
