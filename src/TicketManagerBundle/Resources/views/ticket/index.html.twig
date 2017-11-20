@@ -2,37 +2,33 @@
 
 {% block body %}
     <h1>Tickets list</h1>
-
-        {% for ticket in tickets %}
-            <div>
-                <h2>
-                    <a href="{{ path('ticket_show', { 'id': ticket.id }) }}">{{ ticket.title }}</a>
-                </h2>
-                <p>{{ ticket.content| nl2br }}</p>
-                <span>created the {{ ticket.created|date('Y-m-d H:i:s') }} by {{ ticket.author }}</span>
-                <span>
+    <a href="{{ path('ticket_new') }}">Create a new ticket</a>
+    {% for ticket in tickets %}
+        <div class="section" >
+            <h2 class="row" >
+                <a class="truncate" href="{{ path('ticket_show', { 'id': ticket.id }) }}">{{ ticket.title }}</a>
+            </h2>
+            <p class="row" >
+                <blockquote class="flow-text">
+                    {{ ticket.content| nl2br }}
+                </blockquote></p>
+            <div class="row">
+                <h6>created the {{ ticket.created|date('Y-m-d H:i:s') }} by {{ ticket.author }}</h6>
+                <h6>
                         assigned to :
                     {% if ticket.assignedAt %}
                         {{ ticket.assignedAt }}
                     {% else %}
                         No one
                     {% endif %}
-                </span>
-                <ul>
-                    <li>
-                        <a href="{{ path('ticket_show', { 'id': ticket.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('ticket_edit', { 'id': ticket.id }) }}">edit</a>
-                    </li>
-                </ul>
+                </h6>
+            </div>
+            <div class="row">
+                <a href="{{ path('ticket_edit', { 'id': ticket.id }) }}">edit</a><br />
+
                 <span>{{ticket.messages.count()}} messages </span> {# FIXME: Messages #}
             </div>
-        {% endfor %}
-
-    <ul>
-        <li>
-            <a href="{{ path('ticket_new') }}">Create a new ticket</a>
-        </li>
-    </ul>
+        </div>
+        <div class="divider"></div>
+    {% endfor %}
 {% endblock %}
