@@ -15,7 +15,8 @@ class TicketType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('content');
+            ->add('content')
+            ->add('assignedAt');
     }
     
     /**
