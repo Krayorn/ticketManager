@@ -3,6 +3,7 @@
 namespace TicketManagerBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +22,7 @@ class TicketType extends AbstractType
             $builder->add('assignedAt');
 
             if ($options['isEdition']){
-                $builder->add('author', null, array(
+                $builder->add('author', TextType::class, array(
                     'disabled'  => true,
                 ));
             }
