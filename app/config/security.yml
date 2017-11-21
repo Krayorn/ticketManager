@@ -36,6 +36,7 @@ security:
         - { path: ^/login$, allow_if: "!has_role('ROLE_USER')" }
         - { path: ^/register, allow_if: "!has_role('ROLE_USER')" }
         - { path: ^/resetting, role: IS_AUTHENTICATED_REMEMBERED }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/ticket/admin/, role: ROLE_ADMIN }
+        - { path: ^/message/admin/, role: ROLE_ADMIN }
         - { path: ^/, role: IS_AUTHENTICATED_REMEMBERED }
 

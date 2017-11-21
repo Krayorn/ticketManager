@@ -50,7 +50,7 @@ class MessageController extends Controller
     /**
      * Displays a form to edit an existing message entity.
      *
-     * @Route("/{id}/edit", name="message_edit")
+     * @Route("/admin/edit/{id}", name="message_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Message $message)
@@ -75,7 +75,7 @@ class MessageController extends Controller
     /**
      * Deletes a message entity.
      *
-     * @Route("/{id}", name="message_delete")
+     * @Route("/admin/delete/{id}", name="message_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Message $message)

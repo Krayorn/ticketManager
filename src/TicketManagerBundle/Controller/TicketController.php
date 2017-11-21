@@ -108,7 +108,7 @@ class TicketController extends Controller
     /**
      * Displays a form to edit an existing ticket entity.
      *
-     * @Route("/{id}/edit", name="ticket_edit")
+     * @Route("/admin/edit/{id}", name="ticket_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Ticket $ticket)
@@ -139,7 +139,7 @@ class TicketController extends Controller
     /**
      * Deletes a ticket entity.
      *
-     * @Route("/{id}", name="ticket_delete")
+     * @Route("/admin/delete/{id}", name="ticket_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Ticket $ticket)
