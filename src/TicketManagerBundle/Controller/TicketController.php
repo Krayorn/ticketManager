@@ -52,7 +52,9 @@ class TicketController extends Controller
         $ticket->setCreated(new \DateTime());
         $ticket->setAuthor($this->getUser());
 
-        $form = $this->createForm('TicketManagerBundle\Form\TicketType', $ticket);
+        $options = array('isAdmin' => $this->isGranted('ROLE_ADMIN'));
+
+        $form = $this->createForm('TicketManagerBundle\Form\TicketType', $ticket, $options);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -112,7 +114,13 @@ class TicketController extends Controller
     public function editAction(Request $request, Ticket $ticket)
     {
         $deleteForm = $this->createDeleteForm($ticket);
-        $editForm = $this->createForm('TicketManagerBundle\Form\TicketType', $ticket);
+
+        $options = array(
+            'isAdmin'   => $this->isGranted('ROLE_ADMIN'),
+            'isEdition' => true,
+        );
+
+        $editForm = $this->createForm('TicketManagerBundle\Form\TicketType', $ticket, $options);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

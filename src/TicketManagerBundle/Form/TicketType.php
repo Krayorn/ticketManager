@@ -16,7 +16,16 @@ class TicketType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('assignedAt');
+            ;
+        if ($options['isAdmin']){
+            $builder->add('assignedAt');
+
+            if ($options['isEdition']){
+                $builder->add('author', null, array(
+                    'disabled'  => true,
+                ));
+            }
+        }
     }
     
     /**
@@ -25,7 +34,9 @@ class TicketType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TicketManagerBundle\Entity\Ticket'
+            'data_class' => 'TicketManagerBundle\Entity\Ticket',
+            'isAdmin'    => false,
+            'isEdition'  => false,
         ));
     }
 
