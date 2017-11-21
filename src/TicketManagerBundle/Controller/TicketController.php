@@ -28,7 +28,12 @@ class TicketController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $tickets = $em->getRepository('TicketManagerBundle:Ticket')->findAll();
+        if ($this->isGranted('ROLE_ADMIN')){
+            $tickets = $em->getRepository('TicketManagerBundle:Ticket')->findAll();
+        }else{
+            $currentUser = $this->getUser();
+            $tickets = $em->getRepository('TicketManagerBundle:Ticket')->findUserTickets($currentUser);
+        }
 
         return $this->render('TicketManagerBundle::ticket/index.html.twig', array(
             'tickets' => $tickets,
