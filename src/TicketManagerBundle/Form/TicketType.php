@@ -18,7 +18,7 @@ class TicketType extends AbstractType
             ->add('content')
             ->add('assignedAt');
     }
-    
+
     /**
      * {@inheritdoc}
      */

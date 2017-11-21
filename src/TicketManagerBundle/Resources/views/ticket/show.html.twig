@@ -1,43 +1,59 @@
 {% extends 'TicketManagerBundle::layout.html.twig' %}
 
 {% block content %}
-    <h2>{{ ticket.title }}</h2>
-    <p>{{ ticket.content| nl2br }}</p>
-    <span>created the {{ ticket.created|date('Y-m-d H:i') }} by {{ ticket.author }}</span>
-    <span>
-            assigned to :
-        {% if ticket.assignedAt %}
-            {{ ticket.assignedAt }}
-        {% else %}
-            No one
-        {% endif %}
-    </span>
+    <h2 class="row" >
+        <a class="truncate" href="{{ path('ticket_show', { 'id': ticket.id }) }}">{{ ticket.title }}</a>
+    </h2>
+    <p class="row" >
+        <blockquote class="flow-text">
+            {{ ticket.content| nl2br }}
+        </blockquote>
+    </p>
+    <div class="row">
+        <h6>created the {{ ticket.created|date('Y-m-d H:i:s') }} by {{ ticket.author }}</h6>
+        <h6>
+                assigned to :
+            {% if ticket.assignedAt %}
+                {{ ticket.assignedAt }}
+            {% else %}
+                No one
+            {% endif %}
+        </h6>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('ticket_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('ticket_edit', { 'id': ticket.id }) }}">Edit</a>
-        </li>
-        <li>
+    <div class="row">
+        <a href="{{ path('ticket_edit', { 'id': ticket.id }) }}">edit</a><br />
+        <a href="{{ path('ticket_index') }}">Back to the list</a><br />
+        <span>{{ticket.messages.count()}} messages </span> {# FIXME: Messages #}
+    </div>
+
+    <div class="row">
+
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    Delete
+                </button>
             {{ form_end(delete_form) }}
-        </li>
-        <li>
-            {{ form_start(new_message_form) }}
-                <input type="submit" value="Create">
-            {{ form_end(new_message_form) }}
-        </li>
-    </ul>
+    </div>
+    <div class="row">
+        {{ form_start(new_message_form) }}
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    Create
+                </button>
+        {{ form_end(new_message_form) }}
+    </div>
+
+
+
 
     {% for message in ticket.messages %}
         <p>{{message.content| nl2br}}</p>
         <span>By : {{message.author}} the {{message.created|date('Y-m-d H:i')}}</span>
         <a href="{{ path('message_edit', { 'id': message.id }) }}">Edit</a>
         {{ form_start(delete_message_forms[message.id].createView()) }}
-            <input type="submit" value="Delete">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                Delete
+            </button>
         {{ form_end(delete_message_forms[message.id].createView()) }}
     {% endfor %}
 

@@ -13,7 +13,7 @@ class MessageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('content');
+        $builder->add('content', null, array('attr'=> array('class'=>'materialize-textarea')));
     }
 
     /**
