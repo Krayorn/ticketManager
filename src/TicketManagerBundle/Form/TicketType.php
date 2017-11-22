@@ -2,6 +2,7 @@
 
 namespace TicketManagerBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,7 +21,9 @@ class TicketType extends AbstractType
             ->add('content', null, array('attr'=> array('class'=>'materialize-textarea')))
             ;
         if ($options['isAdmin']){
-            $builder->add('assignedAt', ChoiceType::class);
+            $builder->add('assignedAt', EntityType::class, array(
+                'class' => 'UserBundle:User'
+            ));
 
 
 

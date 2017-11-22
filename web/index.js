@@ -3,3 +3,7 @@ $('.fixed-action-btn').floatingActionButton({
     hoverEnabled: true, // Hover enabled
     toolbarEnabled: false // Toolbar transition enabled
   });
+
+$(document).ready(function() {
+    $('select').material_select();
+});
