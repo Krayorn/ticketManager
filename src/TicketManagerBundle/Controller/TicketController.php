@@ -5,6 +5,7 @@ namespace TicketManagerBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 
 use TicketManagerBundle\Entity\Ticket;
@@ -28,7 +29,12 @@ class TicketController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $tickets = $em->getRepository('TicketManagerBundle:Ticket')->findAll();
+        if ($this->isGranted('ROLE_ADMIN')){
+            $tickets = $em->getRepository('TicketManagerBundle:Ticket')->findAll();
+        }else{
+            $currentUser = $this->getUser();
+            $tickets = $em->getRepository('TicketManagerBundle:Ticket')->findUserTickets($currentUser);
+        }
 
         $arrayDeleteForm = [];
 
@@ -56,7 +62,9 @@ class TicketController extends Controller
         $ticket->setCreated(new \DateTime());
         $ticket->setAuthor($this->getUser());
 
-        $form = $this->createForm('TicketManagerBundle\Form\TicketType', $ticket);
+        $options = array('isAdmin' => $this->isGranted('ROLE_ADMIN'));
+
+        $form = $this->createForm('TicketManagerBundle\Form\TicketType', $ticket, $options);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -81,6 +89,10 @@ class TicketController extends Controller
      */
     public function showAction(Ticket $ticket)
     {
+        if (!$ticket->canBeSeenBy($this->getUser())){
+            throw new AccessDeniedException('Access denied');
+        }
+
         $deleteForm = $this->createDeleteForm($ticket);
 
         $message = new Message();
@@ -110,13 +122,19 @@ class TicketController extends Controller
     /**
      * Displays a form to edit an existing ticket entity.
      *
-     * @Route("/{id}/edit", name="ticket_edit")
+     * @Route("/admin/edit/{id}", name="ticket_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Ticket $ticket)
     {
         $deleteForm = $this->createDeleteForm($ticket);
-        $editForm = $this->createForm('TicketManagerBundle\Form\TicketType', $ticket);
+
+        $options = array(
+            'isAdmin'   => $this->isGranted('ROLE_ADMIN'),
+            'isEdition' => true,
+        );
+
+        $editForm = $this->createForm('TicketManagerBundle\Form\TicketType', $ticket, $options);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -135,7 +153,7 @@ class TicketController extends Controller
     /**
      * Deletes a ticket entity.
      *
-     * @Route("/{id}", name="ticket_delete")
+     * @Route("/admin/delete/{id}", name="ticket_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Ticket $ticket)

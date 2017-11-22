@@ -10,4 +10,13 @@ namespace TicketManagerBundle\Repository;
  */
 class TicketRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findUserTickets($user)
+    {
+        $qb = $this->createQueryBuilder('t');
+
+        return $qb->where('t.assignedAt = :user')
+            ->orWhere('t.author = :user')
+            ->setParameter('user', $user)
+            ->getQuery()->getResult();
+    }
 }
