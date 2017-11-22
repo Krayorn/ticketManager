@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Message edit</h1>
+    <h2 class="truncate red-text text-lighten-1">Message edit</h2>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
@@ -20,7 +20,9 @@
     <ul>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <button class="red accent-2 col s2 offset-s1 btn waves-effect waves-light" type="submit" name="action">
+                    Delete
+                </button>
             {{ form_end(delete_form) }}
         </li>
     </ul>
