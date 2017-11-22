@@ -18,11 +18,15 @@ class TicketType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('content', null, array('attr'=> array('class'=>'materialize-textarea')))
+            ->add('content', null, array('attr'=> array(
+                'class'=>'materialize-textarea'
+            )))
             ;
         if ($options['isAdmin']){
             $builder->add('assignedAt', EntityType::class, array(
-                'class' => 'UserBundle:User'
+                'class' => 'UserBundle:User',
+                'label' => false,
+                'placeholder' => 'select a user'
             ));
 
             if ($options['isEdition']){
