@@ -30,8 +30,17 @@ class TicketController extends Controller
 
         $tickets = $em->getRepository('TicketManagerBundle:Ticket')->findAll();
 
+        $arrayDeleteForm = [];
+
+        foreach ($tickets as $ticket) {
+            $deleteForm = $this->createDeleteForm($ticket);
+
+            $arrayDeleteForm[$ticket->getId()] = $deleteForm;
+        }
+
         return $this->render('TicketManagerBundle::ticket/index.html.twig', array(
             'tickets' => $tickets,
+            'delete_tickets_forms' => $arrayDeleteForm
         ));
     }
 

@@ -1,5 +1,9 @@
 {% extends "base.html.twig" %}
 
+{% block javascripts %}
+    <script src={{ asset('index.js')}}></script>
+{% endblock %}
+
 {% block body %}
     <a href="#">edit your profile</a>
     {% block content %}{% endblock %}

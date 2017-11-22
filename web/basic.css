@@ -1,7 +1,21 @@
-.white {
-	color: white;
+.ticket_title {
+	width: max-content;
 }
 
-.red {
-	color: red;
+.fixed-action-btn {
+	position: relative;
+}
+
+.fixed-action-btn ul {
+	position: relative;
+	bottom: 0;
+}
+
+.fixed-action-btn ul .btn-floating{
+	border-radius: 0px;
+}
+
+.row .col.s1.btn-floating {
+	width: 65px;
+	padding: 0;
 }
