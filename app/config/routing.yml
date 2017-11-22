@@ -1,3 +1,7 @@
+homepage:
+    path:   /
+    defaults:  { _controller: TicketManagerBundle:Ticket:index }
+
 ticket_manager_ticket:
     resource: "@TicketManagerBundle/Controller/TicketController.php"
     type:     annotation
