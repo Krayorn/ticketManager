@@ -5,6 +5,7 @@ namespace TicketManagerBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 
 use TicketManagerBundle\Entity\Ticket;
@@ -79,6 +80,10 @@ class TicketController extends Controller
      */
     public function showAction(Ticket $ticket)
     {
+        if (!$ticket->canBeSeenBy($this->getUser())){
+            throw new AccessDeniedException('Access denied');
+        }
+
         $deleteForm = $this->createDeleteForm($ticket);
 
         $message = new Message();

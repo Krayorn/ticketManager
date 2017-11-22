@@ -12,7 +12,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        var_dump($this->isGranted('ROLE_USER'));
         return $this->render('TicketManagerBundle:Default:index.html.twig');
     }
 }

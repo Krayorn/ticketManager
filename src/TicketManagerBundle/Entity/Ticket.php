@@ -66,6 +66,22 @@ class Ticket
      */
     private $messages;
 
+    public function canBeSeenBy(User $user)
+    {
+        if ($user->hasRole('ROLE_ADMIN')){
+            return true;
+        }
+
+        if ($this->getAuthor() === $user){
+            return true;
+        }
+
+        if ($this->getAssignedAt() === $user){
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * Get id
