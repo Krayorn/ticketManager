@@ -4,6 +4,6 @@ $('.fixed-action-btn').floatingActionButton({
     toolbarEnabled: false // Toolbar transition enabled
   });
 
-$(document).ready(function() {
-    $('select').material_select();
+$(document).ready(function(){
+    $('select').select();
 });
