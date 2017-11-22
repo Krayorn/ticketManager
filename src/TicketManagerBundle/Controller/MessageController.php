@@ -5,6 +5,7 @@ namespace TicketManagerBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 
 use TicketManagerBundle\Entity\Message;
@@ -26,6 +27,10 @@ class MessageController extends Controller
      */
     public function newAction(Request $request, Ticket $ticket)
     {
+        if (!$ticket->canBeSeenBy($this->getUser())){
+            throw new AccessDeniedException('Access denied');
+        }
+
         $message = new Message();
         $messageForm = $this->createForm(MessageType::class, $message);
         $messageForm->handleRequest($request);
