@@ -8,16 +8,22 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     {% endif %}
 
-    <div class="input-field col s6">
+    <div class="input-field col s12">
         <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
-        <label for="username">{{ 'security.login.username'|trans }}</label>
+        <label for="username">username<label>
     </div>
 
-    <label for="password">{{ 'security.login.password'|trans }}</label>
-    <input type="password" id="password" name="_password" required="required" />
+    <div class="input-field col s12">
+        <input type="password" id="password" name="_password" required="required" />
+        <label for="password">password</label>
+    </div>
 
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+    <label>
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        <span>Remember me</span>
+    </label><br /><br />
 
-    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    <button class="red accent-2 btn waves-effect waves-light" type="submit">
+        Login
+    </button>
 </form>
