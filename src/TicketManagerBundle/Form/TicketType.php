@@ -25,8 +25,6 @@ class TicketType extends AbstractType
                 'class' => 'UserBundle:User'
             ));
 
-
-
             if ($options['isEdition']){
                 $builder->add('author', TextType::class, array(
                     'disabled'  => true,
