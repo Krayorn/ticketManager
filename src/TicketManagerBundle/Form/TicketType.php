@@ -16,14 +16,15 @@ class TicketType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('content')
+            ->add('content', null, array('attr'=> array('class'=>'materialize-textarea')))
             ;
         if ($options['isAdmin']){
-            $builder->add('assignedAt');
+            $builder->add('assignedAt', TextType::class);
 
             if ($options['isEdition']){
                 $builder->add('author', TextType::class, array(
                     'disabled'  => true,
+                    'attr'=> array('class'=>'input-field')
                 ));
             }
         }
