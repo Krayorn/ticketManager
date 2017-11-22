@@ -13,6 +13,14 @@
     </head>
     <body>
         <div class="container">
+            <nav class="red accent-4 fullWidth fixed top left centered-child first-index">
+                <div class="nav-wrapper width70">
+                    <span href="#" class="brand-logo">KManager</span>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        {% block navLinks %}{% endblock %}
+                    </ul>
+                </div>
+            </nav>
             {% block body %}{% endblock %}
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

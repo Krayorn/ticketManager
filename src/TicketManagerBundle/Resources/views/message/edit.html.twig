@@ -1,5 +1,12 @@
 {% extends 'TicketManagerBundle::layout.html.twig' %}
 
+{% block navLinks %}
+    <li><a href="{{ path('ticket_new') }}">Create new ticket</a></li>
+    <li><a href="{{ path('ticket_index') }}">Back to the list</a></li>
+    <li><a href="{{ path('ticket_show', {'id': message.ticket.id}) }}">Back to the ticket</a></li>
+    {{ parent() }}
+{% endblock %}
+
 {% block content %}
     <h1>Message edit</h1>
 

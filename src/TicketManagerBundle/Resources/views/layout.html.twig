@@ -4,8 +4,11 @@
     <script src={{ asset('index.js')}}></script>
 {% endblock %}
 
+{% block navLinks %}
+    <li><a href="{{ path('fos_user_security_logout') }}">logout</a></li>
+{% endblock %}
+
 {% block body %}
-    <a href="#">edit your profile</a>
     {% block content %}{% endblock %}
 {% endblock %}
 
