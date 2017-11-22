@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <a href="#">edit your profile</a>
+    <a href="{{ path('fos_user_profile_edit') }}">edit your profile</a>
     {% block content %}{% endblock %}
 {% endblock %}
 
