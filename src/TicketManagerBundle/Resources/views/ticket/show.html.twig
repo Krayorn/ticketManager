@@ -26,28 +26,32 @@
             {% endif %}
         </h6>
     </div>
-  <div class="row fixed-action-btn">
-    <a class="col s1 btn-floating btn-large red accent-2">
-        <i class="large material-icons">drag_handle</i>
-    </a>
-    <ul>
-        <li>
-            <a class="col s3 offset-s1 red accent-2 btn btn-floating waves-effect waves-light " href="{{ path('ticket_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a class="col s2 offset-s1 red accent-2 btn btn-floating waves-effect waves-light" href="{{ path('ticket_edit', { 'id': ticket.id }) }}">edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <button class="red accent-2 col s2 offset-s1 btn btn-floating waves-effect waves-light" type="submit" name="action">
-                    Delete
-                </button>
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="row fixed-action-btn">
+            <a class="col s1 btn-floating btn-large red accent-2">
+                <i class="large material-icons">drag_handle</i>
+            </a>
+            <ul>
+                <li>
+                    <a class="col s3 offset-s1 red accent-2 btn btn-floating waves-effect waves-light " href="{{ path('ticket_index') }}">Back to the list</a>
+                </li>
 
-  </div>
+                    <li>
+                        <a class="col s2 offset-s1 red accent-2 btn btn-floating waves-effect waves-light" href="{{ path('ticket_edit', { 'id': ticket.id }) }}">edit</a>
+                    </li>
+                    <li>
+                        {{ form_start(delete_form) }}
+                            <button class="red accent-2 col s2 offset-s1 btn btn-floating waves-effect waves-light" type="submit" name="action">
+                                Delete
+                            </button>
+                        {{ form_end(delete_form) }}
+                    </li>
 
+            </ul>
+        </div>
+    {% else %}
+        <a class="col s3 offset-s1 red accent-2 btn waves-effect waves-light " href="{{ path('ticket_index') }}">Back to the list</a>
+    {% endif %}
     <div class="row">
         <span>{{ticket.messages.count()}} messages </span> {# FIXME: Messages #}
     </div>
@@ -65,12 +69,15 @@
         </div><br />
         <span>By : {{message.author}} the {{message.created|date('Y-m-d H:i')}}</span>
         <div class="row">
+
+        {% if is_granted('ROLE_ADMIN') %}
             <a class="col s2 red accent-2 btn waves-effect waves-light" href="{{ path('message_edit', { 'id': message.id }) }}">Edit</a>
             {{ form_start(delete_message_forms[message.id].createView()) }}
                 <button class="col s2 red accent-2 offset-s1 btn waves-effect waves-light" type="submit" name="action">
                     Delete
                 </button>
             {{ form_end(delete_message_forms[message.id].createView()) }}
+        {% endif %}
         </div>
         <div class="divider"></div><br />
     {% endfor %}
