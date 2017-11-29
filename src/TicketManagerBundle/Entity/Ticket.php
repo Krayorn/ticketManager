@@ -56,6 +56,7 @@ class Ticket
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="ticketsAssigned")
+     * @ORM\JoinColumn(name="assigned_at_id", referencedColumnName="id", nullable=true)
      */
     private $assignedAt;
 

@@ -26,7 +26,8 @@ class TicketType extends AbstractType
             $builder->add('assignedAt', EntityType::class, array(
                 'class' => 'UserBundle:User',
                 'label' => false,
-                'placeholder' => 'select a user'
+                'placeholder' => 'select a user',
+                'required' => false,
             ));
 
             if ($options['isEdition']){
