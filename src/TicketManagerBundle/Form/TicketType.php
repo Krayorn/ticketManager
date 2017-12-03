@@ -29,13 +29,13 @@ class TicketType extends AbstractType
                 'placeholder' => 'select a user',
                 'required' => false,
             ));
+        }
 
-            if ($options['isEdition']){
-                $builder->add('author', TextType::class, array(
-                    'disabled'  => true,
-                    'attr'=> array('class'=>'input-field')
-                ));
-            }
+        if ($options['isEdition']){
+            $builder->add('author', TextType::class, array(
+                'disabled'  => true,
+                'attr'=> array('class'=>'input-field')
+            ));
         }
     }
 
