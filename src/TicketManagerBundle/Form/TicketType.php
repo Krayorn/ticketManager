@@ -31,6 +31,8 @@ class TicketType extends AbstractType
             ));
         }
 
+        //more logical behavior in case user may acquire permission to edit ticket.
+
         if ($options['isEdition']){
             $builder->add('author', TextType::class, array(
                 'disabled'  => true,
