@@ -36,11 +36,5 @@ append :linked_dirs, "var"
 set :keep_releases, 5
 set :default_env, {"SYMFONY_ENV" => 'prod'}
 
-SSHKit.config.command_map[:composer] = "php #{shared_path.join("composer.phar")}"
-
-namespace :deploy do
-  after :starting, 'composer:install_executable'
-end
-
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
